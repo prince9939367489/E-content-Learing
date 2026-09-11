@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import axios from 'axios';
+import api from './api';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
@@ -39,15 +39,12 @@ const App: React.FC = () => {
     const validateToken = async () => {
       const token = localStorage.getItem('token');
       const userData = localStorage.getItem('user');
-      
+
       if (token && userData) {
         try {
-          // Add token to default axios headers
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          
           // Verify token by making a request to the backend
-          const response = await axios.get('http://localhost:5000/api/profile/me');
-          
+          const response = await api.get('/profile/me');
+
           if (response.data.success) {
             setIsAuthenticated(true);
             setUser(response.data.data.user);
@@ -59,7 +56,6 @@ const App: React.FC = () => {
           // If token is invalid, clear everything
           localStorage.removeItem('token');
           localStorage.removeItem('user');
-          delete axios.defaults.headers.common['Authorization'];
           setIsAuthenticated(false);
           setUser(null);
         }
@@ -76,7 +72,6 @@ const App: React.FC = () => {
   const login = (token: string, userData: any) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(userData));
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setIsAuthenticated(true);
     setUser(userData);
   };
@@ -84,7 +79,6 @@ const App: React.FC = () => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    delete axios.defaults.headers.common['Authorization'];
     setIsAuthenticated(false);
     setUser(null);
   };
@@ -108,13 +102,13 @@ const App: React.FC = () => {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route 
-              path="/feedback" 
+            <Route
+              path="/feedback"
               element={
                 <ProtectedRoute>
                   <Feedback />
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
         </div>
@@ -123,4 +117,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App; 
+export default App;

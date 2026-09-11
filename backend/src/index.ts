@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import authRoutes from './routes/auth';
 import courseRoutes from './routes/courses';
 import feedbackRoutes from './routes/feedback';
+import profileRoutes from './routes/profile';
 import AppError from './utils/AppError';
 import globalErrorHandler from './middleware/globalErrorHandler';
 
@@ -13,13 +14,16 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+}));
 app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Welcome route
 app.get('/', (req: Request, res: Response) => {
@@ -46,13 +50,24 @@ const connectDB = async () => {
     });
   } catch (error) {
     console.error('MongoDB connection error:', error);
-    process.exit(1);
+    throw error;
   }
 };
 
-connectDB();
-
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-}); 
+
+const startServer = async () => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is required. Add it to backend/.env before starting the API.');
+  }
+
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+};
+
+startServer().catch((error) => {
+  console.error('Unable to start the API:', error);
+  process.exit(1);
+});

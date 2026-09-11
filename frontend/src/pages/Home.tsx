@@ -1,17 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleGetStarted = () => {
-    setIsLoading(true);
-    // Simulate a small delay for better UX
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  };
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -25,29 +15,12 @@ const Home: React.FC = () => {
               Discover a world of knowledge with our comprehensive online courses. Learn at your own pace, anytime, anywhere.
             </p>
             <div className="mt-10">
-              <button
-                onClick={handleGetStarted}
-                disabled={isLoading}
-                className={`inline-flex items-center justify-center px-8 py-3 border border-transparent rounded-md text-base font-medium transition-all duration-200 ease-in-out ${
-                  isLoading
-                    ? 'bg-gray-100 text-primary cursor-not-allowed'
-                    : 'bg-white text-primary hover:bg-gray-100 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white'
-                }`}
+              <Link
+                to="/courses"
+                className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-primary transition-all duration-200 ease-in-out hover:scale-105 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
               >
-                {isLoading ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Loading...
-                  </>
-                ) : (
-                  <Link to="/courses" className="text-primary">
-                    Get Started
-                  </Link>
-                )}
-              </button>
+                Browse courses
+              </Link>
             </div>
           </div>
         </div>
@@ -96,9 +69,9 @@ const Home: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="mt-4 text-lg font-medium text-gray-900">Certification</h3>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">Course Feedback</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Get certified upon completion of your courses.
+                  Share ratings and comments for courses you have explored.
                 </p>
               </div>
             </div>
@@ -109,4 +82,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home; 
+export default Home;

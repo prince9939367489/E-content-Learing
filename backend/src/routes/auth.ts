@@ -30,7 +30,7 @@ router.post(
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      throw new AppError('Email already registered', 400);
+      throw new AppError('Email already registered', 409);
     }
 
     // Create new user
@@ -113,4 +113,4 @@ router.post(
   })
 );
 
-export default router; 
+export default router;

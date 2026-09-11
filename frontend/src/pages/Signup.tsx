@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../App';
-import axios from 'axios';
+import api from '../api';
 
 const Signup: React.FC = () => {
   const [name, setName] = useState('');
@@ -29,8 +29,8 @@ const Signup: React.FC = () => {
       return;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
+    if (password.length < 6 || !/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+      setError('Password must be at least 6 characters and include a letter and number');
       return;
     }
 
@@ -40,13 +40,14 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+      const response = await api.post('/auth/signup', {
         name,
         email,
         password,
+        confirmPassword,
       });
 
-      const { token, user } = response.data;
+      const { token, user } = response.data.data;
       login(token, user);
       navigate('/courses');
     } catch (error: any) {
@@ -246,4 +247,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup; 
+export default Signup;

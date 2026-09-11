@@ -98,7 +98,7 @@ export const updateCourseValidation = [
 ];
 
 export const courseIdValidation = [
-  param('courseId')
+  param('id')
     .isMongoId()
     .withMessage('Invalid course ID')
-]; 
+];

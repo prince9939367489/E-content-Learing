@@ -123,6 +123,10 @@ const updateFeedback = catchAsync(async (req: Request, res: Response) => {
   const { feedbackId } = req.params;
   const { rating, comment } = authReq.body;
 
+  if (rating === undefined && comment === undefined) {
+    throw new AppError('Provide a rating or comment to update', 400);
+  }
+
   const feedback = await Feedback.findById(feedbackId);
   if (!feedback) {
     throw new AppError('Feedback not found', 404);
@@ -133,8 +137,8 @@ const updateFeedback = catchAsync(async (req: Request, res: Response) => {
     throw new AppError('Not authorized to update this feedback', 403);
   }
 
-  feedback.rating = rating;
-  feedback.comment = comment;
+  if (rating !== undefined) feedback.rating = rating;
+  if (comment !== undefined) feedback.comment = comment;
   await feedback.save();
 
   // Update course average rating
@@ -198,4 +202,4 @@ router.get('/course/:courseId/stats', validate(courseFeedbackValidation), getCou
 router.put('/:feedbackId', [auth, validate(updateFeedbackValidation)], updateFeedback);
 router.delete('/:feedbackId', [auth, validate(feedbackIdValidation)], deleteFeedback);
 
-export default router; 
+export default router;

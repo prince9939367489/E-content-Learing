@@ -7,7 +7,6 @@ export interface IProfile extends Document {
   address?: string;
   education?: string;
   interests?: string[];
-  enrolledCourses: Types.ObjectId[];
   bio?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -41,10 +40,6 @@ const profileSchema = new Schema<IProfile>({
   interests: [{
     type: String,
     trim: true
-  }],
-  enrolledCourses: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Course'
   }],
   bio: {
     type: String,

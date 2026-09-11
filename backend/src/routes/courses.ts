@@ -46,7 +46,7 @@ router.post(
     }
 
     // Check if user is already enrolled
-    if (authReq.user.enrolledCourses.includes(course._id)) {
+    if (authReq.user.enrolledCourses.some((courseId) => courseId.toString() === course._id.toString())) {
       throw new AppError('You are already enrolled in this course', 400);
     }
 
@@ -65,4 +65,4 @@ router.post(
   })
 );
 
-export default router; 
+export default router;

@@ -49,7 +49,7 @@ const userSchema = new Schema<IUser>({
 // Hash password before saving
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
-  
+
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -70,12 +70,17 @@ userSchema.methods.comparePassword = async function(candidatePassword: string): 
 
 // Generate JWT token
 userSchema.methods.generateAuthToken = function(): string {
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) {
+    throw new Error('JWT_SECRET is required to issue authentication tokens');
+  }
+
   return jwt.sign(
     { userId: this._id },
-    process.env.JWT_SECRET || 'your-secret-key',
+    jwtSecret,
     { expiresIn: '24h' }
   );
 };
 
 const User = model<IUser>('User', userSchema);
-export default User; 
+export default User;

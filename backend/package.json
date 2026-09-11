@@ -7,7 +7,8 @@
     "start": "node dist/index.js",
     "dev": "nodemon --exec ts-node src/index.ts",
     "build": "rimraf dist && tsc",
-    "dev:watch": "nodemon --watch src --ext ts"
+    "dev:watch": "nodemon --watch src --ext ts",
+    "seed": "ts-node src/scripts/seedCourses.ts"
   },
   "keywords": [],
   "author": "",

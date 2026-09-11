@@ -1,93 +1,62 @@
 import React from 'react';
 
 const About: React.FC = () => {
+  const capabilities = [
+    ['Course discovery', 'A responsive catalogue reads course data from the Express API and presents level, duration, rating, and price.'],
+    ['Account access', 'Registration and login use validated email/password requests, bcrypt password hashes, and 24-hour JWT bearer tokens.'],
+    ['Learning actions', 'Authenticated learners can enroll in a course and leave ratings or written feedback.'],
+    ['Clear architecture', 'React and Vite power the interface while Express, Mongoose, and MongoDB handle API and persistence concerns.'],
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            About E-Learn
-          </h2>
-          <p className="mt-4 text-lg text-gray-500">
-            Empowering learners worldwide through quality education
+    <main className="min-h-screen bg-gray-100">
+      <section className="bg-gradient-to-br from-primary to-blue-700 text-white">
+        <div className="max-w-5xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-blue-100">About the project</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-extrabold sm:text-5xl">A full-stack prototype for exploring and joining online courses.</h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-100">
+            E-Learn demonstrates how a typed React client, a REST API, MongoDB models, and token-based authentication work together in one learning platform.
           </p>
         </div>
+      </section>
 
-        <div className="mt-20">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900">Our Mission</h3>
-              <p className="mt-4 text-gray-500">
-                Our mission is to make quality education accessible to everyone, everywhere. We believe that education is the key to personal and professional growth, and we're committed to providing the best learning experience possible.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900">Our Vision</h3>
-              <p className="mt-4 text-gray-500">
-                We envision a world where anyone, anywhere can transform their life through access to the world's best learning experience. We're building a future where education is more accessible, engaging, and effective than ever before.
-              </p>
-            </div>
+      <section className="max-w-5xl mx-auto px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="capabilities-title">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <h2 id="capabilities-title" className="text-3xl font-bold text-gray-900">What it demonstrates</h2>
+            <p className="mt-4 text-gray-600">
+              The repository is designed as a portfolio-ready engineering prototype, with a separated frontend and backend and explicit API contracts.
+            </p>
           </div>
-
-          <div className="mt-20">
-            <h3 className="text-2xl font-bold text-gray-900 text-center">Our Team</h3>
-            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Team Member 1 */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="px-6 py-8">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center">
-                        <span className="text-white text-xl font-bold">JD</span>
-                      </div>
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="text-lg font-medium text-gray-900">John Doe</h4>
-                      <p className="text-gray-500">CEO & Founder</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Team Member 2 */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="px-6 py-8">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center">
-                        <span className="text-white text-xl font-bold">JS</span>
-                      </div>
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="text-lg font-medium text-gray-900">Jane Smith</h4>
-                      <p className="text-gray-500">Head of Education</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Team Member 3 */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="px-6 py-8">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center">
-                        <span className="text-white text-xl font-bold">MJ</span>
-                      </div>
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="text-lg font-medium text-gray-900">Mike Johnson</h4>
-                      <p className="text-gray-500">Technical Director</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {capabilities.map(([title, description]) => (
+              <article key={title} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600">{description}</p>
+              </article>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section className="border-y border-gray-200 bg-white">
+        <div className="max-w-5xl mx-auto grid gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Current scope</h2>
+            <p className="mt-4 text-gray-600">
+              The working prototype includes accounts, course browsing, enrollment, profiles, and feedback. It does not yet include payments, video delivery, password reset, email verification, or an administration dashboard.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Security approach</h2>
+            <p className="mt-4 text-gray-600">
+              Passwords are hashed before storage, protected endpoints validate bearer tokens, and the API requires an explicit JWT secret. Tokens remain in browser local storage in this prototype; production hardening should move authentication to secure, HttpOnly cookies with refresh-token rotation.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default About; 
+export default About;

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../App';
-import axios from 'axios';
+import api from '../api';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await api.post('/auth/login', {
         email,
         password,
       });
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
                 </div>
               </div>
             )}
-            
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email address
@@ -165,4 +165,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login; 
+export default Login;

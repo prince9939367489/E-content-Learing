@@ -11,13 +11,18 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
       throw new AppError('No authentication token provided', 401);
     }
 
-    const token = authHeader.replace('Bearer ', '');
-    if (!token) {
+    if (!authHeader.startsWith('Bearer ')) {
       throw new AppError('Invalid authentication token format', 401);
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as { userId: string };
-    const user = await User.findById(decoded.userId).select('+password');
+    const token = authHeader.slice(7).trim();
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!token || !jwtSecret) {
+      throw new AppError('Authentication is not configured correctly', 500);
+    }
+
+    const decoded = jwt.verify(token, jwtSecret) as { userId: string };
+    const user = await User.findById(decoded.userId);
 
     if (!user) {
       throw new AppError('User not found or token is invalid', 401);
@@ -27,12 +32,12 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     (req as AuthRequest).userId = decoded.userId;
     next();
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      return next(new AppError('Invalid token', 401));
-    }
     if (error instanceof jwt.TokenExpiredError) {
       return next(new AppError('Token has expired', 401));
     }
+    if (error instanceof jwt.JsonWebTokenError) {
+      return next(new AppError('Invalid token', 401));
+    }
     next(error);
   }
-}; 
+};

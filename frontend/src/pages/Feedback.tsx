@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../App';
-import axios from 'axios';
+import api from '../api';
 
 interface Course {
   _id: string;
@@ -36,11 +36,10 @@ const Feedback: React.FC = () => {
       setIsLoading(true);
       setError('');
       console.log('Fetching courses...');
-      const response = await axios.get('http://localhost:5000/api/courses');
-      
-      if (response.data && Array.isArray(response.data)) {
-        console.log('Courses fetched:', response.data);
-        setCourses(response.data);
+      const response = await api.get('/courses');
+
+      if (response.data.success && Array.isArray(response.data.data)) {
+        setCourses(response.data.data);
       } else {
         console.log('No courses found in response:', response.data);
         setError('No courses available');
@@ -70,19 +69,12 @@ const Feedback: React.FC = () => {
 
     try {
       setIsSubmitting(true);
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        'http://localhost:5000/api/feedback/course',
+      const response = await api.post(
+        '/feedback/course',
         {
           courseId: selectedCourseId,
           rating,
           comment: message
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
         }
       );
 
@@ -218,9 +210,9 @@ const Feedback: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting || isLoading || courses.length === 0}
-                  className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white 
+                  className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white
                     ${(isSubmitting || isLoading || courses.length === 0)
-                      ? 'bg-gray-400 cursor-not-allowed' 
+                      ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                     }`}
                 >
@@ -243,4 +235,4 @@ const Feedback: React.FC = () => {
   );
 };
 
-export default Feedback; 
+export default Feedback;

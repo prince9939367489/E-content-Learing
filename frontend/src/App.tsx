@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import api from './api';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import api, { isDemoMode } from './api';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
@@ -96,6 +96,11 @@ const App: React.FC = () => {
       <Router>
         <div className="min-h-screen bg-gray-100">
           <Navbar />
+          {isDemoMode && (
+            <div className="border-b border-indigo-200 bg-indigo-50 px-4 py-2 text-center text-sm text-indigo-900" role="status">
+              Public portfolio demo — sample data and account actions stay only in this browser.
+            </div>
+          )}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />

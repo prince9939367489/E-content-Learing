@@ -15,7 +15,9 @@ This repository demonstrates a separated React and Express architecture:
 
 The interface includes a landing page, live API-backed course catalogue, sign-up and login forms, a protected feedback form, an honest project About page, and responsive navigation for signed-in and signed-out users.
 
-> **Deployment status:** no public full-stack deployment is available yet. Run the frontend, API, and MongoDB locally using the instructions below.
+**Live portfolio demo:** [Open the E-Content Learning Platform](https://prince-learnspace-demo.princekumar120207.chatgpt.site)
+
+The public demo uses representative course data and browser-only account actions so every visitor can explore the interface without sharing credentials. The full API-backed version still runs locally with MongoDB using the instructions below.
 
 ## Features
 
@@ -124,5 +126,5 @@ This is a learning prototype, not a production identity system. JWTs are stored 
 - Add password reset and email verification
 - Add role-based administration
 - Add course content and progress tracking
-- Deploy the frontend, API, and database
-- Add verified screenshots and a public demo URL
+- Deploy the API and database for a persistent production environment
+- Add verified screenshots

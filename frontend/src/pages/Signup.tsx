@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../App';
 import api from '../api';
+import { isDemoMode } from '../api';
 
 const Signup: React.FC = () => {
   const [name, setName] = useState('');
@@ -93,6 +94,11 @@ const Signup: React.FC = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {isDemoMode && (
+              <div className="rounded border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
+                Demo mode: this form creates a temporary browser-only learner profile; no information is sent to a server.
+              </div>
+            )}
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
                 <div className="flex">

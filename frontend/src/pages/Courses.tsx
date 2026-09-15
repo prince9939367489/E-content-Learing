@@ -96,7 +96,7 @@ const Courses: React.FC = () => {
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((course) => (
               <article key={course._id} className="bg-white overflow-hidden shadow rounded-lg flex flex-col">
-                <img className="h-48 w-full object-cover" src={course.image} alt="" />
+                <img className="h-48 w-full object-cover" src={course.image} alt={`${course.title} course`} />
                 <div className="px-4 py-5 sm:p-6 flex flex-1 flex-col">
                   <p className="text-sm font-semibold text-primary">{course.level}</p>
                   <h2 className="mt-1 text-xl font-semibold text-gray-900">{course.title}</h2>

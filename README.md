@@ -13,7 +13,7 @@ This repository demonstrates a separated React and Express architecture:
 
 ## Application output
 
-The interface includes a landing page, live API-backed course catalogue, sign-up and login forms, a protected feedback form, an honest project About page, and responsive navigation for signed-in and signed-out users.
+The full local application includes a landing page, an API-backed course catalogue, sign-up and login forms, a protected feedback form, an honest project About page, and responsive navigation for signed-in and signed-out users.
 
 **Live portfolio demo:** [Open the E-Content Learning Platform](https://prince-learnspace-demo.princekumar120207.chatgpt.site)
 
